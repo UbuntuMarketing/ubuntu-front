@@ -1,27 +1,20 @@
-"use client";
+import { cookies } from "next/headers";
 import Link from "next/link";
-import React, { useEffect } from "react";
-import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
-import Spinner from "../components/Spinner";
+import { redirect } from "next/navigation";
+import React from "react";
+import { API_HOST } from "@/config";
 
-function Layout({ children }: { children: React.ReactNode }) {
-   const { user, loading } = useAuth();
-   const {replace} = useRouter();
-
-   useEffect(() => {
-      if (!user && !loading) {
-         replace("/clientes"); // redirect to login page
-      }
-   }, [user, replace, loading]);
-
-   if (loading || !user) {
-      return (
-         <div className="min-w-screen min-h-screen flex justify-center items-center">
-            <Spinner />
-         </div>
-      );
+const getAuth = () => {
+   const cookieStore = cookies();
+   
+   if(!cookieStore.get('jwt')?.value){
+      redirect('/clientes');
    }
+}
+
+
+async function Layout({ children }: { children: React.ReactNode }) {
+   getAuth();
 
    return (
       <div className="min-h-screen flex flex-col relative">

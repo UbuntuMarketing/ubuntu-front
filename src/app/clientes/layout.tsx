@@ -1,11 +1,13 @@
-import { AuthProvider } from "@/context/AuthContext";
+
 import React from "react";
 
-function Layout({ children }: { children: React.ReactNode }) {
+
+function Layout({ children }: { children: React.ReactNode }) {  
+   
    return (
-      <AuthProvider>
+      <div>
         {children}
-      </AuthProvider>
+      </div>
    );
 }
 
