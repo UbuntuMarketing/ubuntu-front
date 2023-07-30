@@ -2,11 +2,11 @@ import React, { Dispatch, SetStateAction } from "react";
 import Table, { TableProps } from "./Table";
 import CheckboxSelection, { ICheckboxSelectionProps } from "./CheckboxSelection";
 
-interface ISelectionTableProps extends Omit<TableProps, 'data'>, ICheckboxSelectionProps {
-    data: [{
+interface ISelectionTableProps extends Omit<TableProps, 'data'>, Omit<ICheckboxSelectionProps, 'id'> {
+    data: Array<{
         id: number,
         values: Array<any>
-    }]
+    }>
 }
 
 function SelectionTable({

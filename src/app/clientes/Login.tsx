@@ -58,6 +58,7 @@ function Login() {
             name="identifier"
             value={identifier}
             onChange={handleChange}
+            classContainer="mb-5"
          />
          <Input
             label="Contraseña"
@@ -69,7 +70,7 @@ function Login() {
          {error && <p className="text-center mb-5 text-red-500">{error}</p>}
          <Button
             label={loading ? "iniciando" : "Iniciar sesión"}
-            className="w-full"
+            className="w-full mt-5"
          />
       </form>
    );

@@ -3,7 +3,7 @@ import strapiFetch from "@/helpers/fetcher";
 import { IContacto } from "@/interfaces/contactos.interfaces";
 import { StrapiResponse } from "@/interfaces/strapi.interface";
 import { cookies } from "next/headers";
-import TableToSelection from "./TableToSelection";
+import AnadirContacto from "./AnadirContacto";
 
 const getContactos = async (
    idLista: string
@@ -29,14 +29,12 @@ async function page({
       contacto.attributes.lista_contactos?.data.every(
          (lista) => lista.id.toString() != params.id
       )
-   );
-
-  
+   ); 
 
    return (
       <>
          <Title title="Añadir contactos" />
-         <TableToSelection contactos={contactosNotOnList} idTable={params.id}/>         
+         <AnadirContacto contactosNotOnList={contactosNotOnList} idTable={params.id}/>   
       </>
    );
 }
