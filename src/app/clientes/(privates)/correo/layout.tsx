@@ -24,9 +24,19 @@ function LayoutCorreo({ children }: { children: React.ReactNode }) {
                >
                   Lista de Contactos
                </Link>
+               <Link
+                  className="w-full h-14 border-b-2 border-slate-800 text-white flex items-center justify-center"
+                  href="/clientes/correo/envios"
+               >
+                  Crear Campaña
+               </Link>
             </nav>
          </aside>
-         <div className="col-span-4 ml-[224px] w-full">{children}</div>
+         <div className="col-span-4 ml-[224px] w-full">
+            <div className="py-3 px-12">
+               {children}
+            </div>
+         </div>
       </div>
    );
 }

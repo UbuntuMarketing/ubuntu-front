@@ -22,8 +22,3 @@ export async function POST(request: Request) {
         return NextResponse.json(json);     
 }
 
-export async function GET(request: Request) {
-    const cookiesStore = cookies();
-    cookiesStore.set('jwt', '')
-    return NextResponse.json({});  
-}

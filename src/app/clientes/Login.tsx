@@ -21,7 +21,7 @@ function Login() {
       e.preventDefault();
       setLoading(true);
       try{
-         const res = await fetch("/api/auth", {
+         const res = await fetch("/api/auth/login", {
             method: "POST",
             headers: {
                "Content-Type": "application/json",
@@ -34,6 +34,7 @@ function Login() {
             setError(data.error.message);
             return;
          }
+         localStorage.setItem("auth", JSON.stringify(data as ILoginReponse));
          router.push('/clientes/correo');
       }catch(error: any){
          setError(error.message);

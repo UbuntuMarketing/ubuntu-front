@@ -3,11 +3,12 @@ import React from "react";
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
    label: string;
    error?: string;
+   classContainer?: string;
 }
 
-function Input({ label, error, ...props }: InputProps) {
+function Input({ label, error, classContainer = '', ...props }: InputProps) {
    return !error ? (
-      <div className="mb-6">
+      <div className={classContainer}>
          <label
             htmlFor="default-input"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

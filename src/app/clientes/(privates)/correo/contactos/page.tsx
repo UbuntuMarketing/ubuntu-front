@@ -1,45 +1,47 @@
 import React from "react";
 import Table from "@/app/clientes/components/Table";
-import Button from "@/app/clientes/components/Button";
-// import { getContactos } from "@/services/contactos.services";
-import { cookies } from 'next/headers'
-import { API_HOST } from "@/config";
+import { cookies } from "next/headers";
 import { StrapiResponse } from "@/interfaces/strapi.interface";
 import { IContacto } from "@/interfaces/contactos.interfaces";
+import Title from "@/app/clientes/components/Title";
+import LinkButton from "@/app/clientes/components/LinkButton";
+import strapiFetch from "@/helpers/fetcher";
+import AccionesContacto from "./AccionesContacto";
 
-const getContactos = async () : Promise<StrapiResponse<IContacto[]>>=> {
-   const cookieStore = cookies()
-   const token = cookieStore.get('jwt')?.value
-   const res = await fetch(`${API_HOST}/contactos`, {
-      method: "GET",
-      headers: {
-         "Content-Type": "application/json",
-         Authorization: `Bearer ${token}`,
-      },
-   });
-   const data = await res.json();
-   return data;
-}
+const getContactos = async (): Promise<StrapiResponse<IContacto[]>> => {
+   const cookiesStorage = cookies();
+   const token = cookiesStorage.get("jwt")?.value;
+   return strapiFetch({ url: `/contactos`, token, cache: "no-store" });
+};
 
 async function Contactos() {
-   const {data} = await getContactos();
-   const contactos = data.map((contacto) => [contacto.attributes.email, contacto.attributes.nombre])
-   
+   const { data } = await getContactos();
+   const contactos = data.map((contacto) => [
+      contacto.attributes.email,
+      contacto.attributes.nombre,
+      <AccionesContacto id={contacto.id} key={contacto.id}/>
+   ]);
+
    return (
-      <div className="py-3 px-12">
-         <h2 className="text-center text-3xl font-bold">Contactos</h2>
+      <>
+         <Title title="Contactos" />
          <div className="my-5 flex justify-end">
-            <Button label='Añadir' buttonType="green"/>
+            <LinkButton
+               href="/clientes/correo/contactos/nuevo"
+               label="Añadir"
+               buttonType="green"
+            />
          </div>
          <div className="">
             <Table
-               headers={["Correo electrónico", "Nombre"]}
-               data={[...contactos]}
-
+               headers={["Correo electrónico", "Nombre", "Acciones"]}
+               data={contactos}
             />
          </div>
-      </div>
+      </>
    );
 }
+
+
 
 export default Contactos;
