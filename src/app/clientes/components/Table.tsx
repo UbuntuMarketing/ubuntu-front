@@ -1,4 +1,4 @@
-interface TableProps {
+export interface TableProps {
    headers: string[];
    data: Array<Array<any>>;
 }
