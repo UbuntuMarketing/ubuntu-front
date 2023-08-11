@@ -3,13 +3,13 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import Input from "@/app/clientes/components/form/Input";
 import Button from "@/app/clientes/components/Button";
-import { IContacto } from '@/interfaces/contactos.interfaces';
+import { IContacto, IFormNuevoContacto } from '@/interfaces/contactos.interfaces';
 import { useRouter } from 'next/navigation';
 import useFetch from '@/app/hooks/useFetch';
 import ErrorMessage from '@/app/clientes/components/ErrorMessage';
 
 function FormContacto({contacto} : {contacto?: IContacto}) {
-    const [form, setForm] = useState(contacto?.attributes ?? { email: "", nombre: "" });
+    const [form, setForm] = useState<IFormNuevoContacto>(contacto?.attributes ?? { email: "", nombre: "" });
    const { email, nombre } = form;
    const router = useRouter();
    const {fetchCS, error, loading} = useFetch();
@@ -50,7 +50,7 @@ function FormContacto({contacto} : {contacto?: IContacto}) {
                value={email}
                onChange={handleChange}
             />
-            {error && <ErrorMessage error={error} />}
+            {error && <ErrorMessage className="mb-2" error={error} />}
             <Button label={contacto ? 'Editar ': 'Añadir'} className="w-full"  loading={loading}/>
          </form>
   )

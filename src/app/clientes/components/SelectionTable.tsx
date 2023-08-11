@@ -13,7 +13,8 @@ function SelectionTable({
    headers,
    data,
    selection,
-   handleSelection,
+   setSelection,
+   maxHeight
 }: ISelectionTableProps) {  
 
    const headersWithCheckbox = ["#", ...headers];
@@ -21,13 +22,13 @@ function SelectionTable({
    const dataWithCheckbox = data.map((d) => [
       <CheckboxSelection
          selection={selection}
-         handleSelection={handleSelection}
+         setSelection={setSelection}
          id={d.id}
          key={d.id}
       />,
       ...d.values,
    ]);
-   return <Table headers={headersWithCheckbox} data={dataWithCheckbox} />;
+   return <Table headers={headersWithCheckbox} data={dataWithCheckbox} maxHeight={maxHeight} />;
 }
 
 

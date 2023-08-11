@@ -34,14 +34,26 @@ async function page({
    const contactosEnLista = contactos.map((contacto) => [
       contacto.attributes.nombre,
       contacto.attributes.email,
-      <AccionesContactoEnLista idContacto={contacto.id} idLista={params.id} key={contacto.id} />,
+      <AccionesContactoEnLista
+         idContacto={contacto.id}
+         idLista={params.id}
+         key={contacto.id}
+      />,
    ]);
 
    return (
       <>
          <Title title={data.attributes.nombre} />
-         <div className="my-6" >
-            <LinkButton label="Añadir contactos"  href={`./${params.id}/anadir-contactos`} />
+         <div className="my-6 flex justify-between">
+            <LinkButton
+               label="Añadir contactos"
+               href={`./${params.id}/anadir-contactos`}
+            />
+            <LinkButton
+               label="Editar"
+               href={`/clientes/correo/lista-contactos/editar/${params.id}`}
+               className="bg-green-600"
+            />
          </div>
          <div className="my-6">
             <Table

@@ -18,7 +18,7 @@ async function Layout({ children }: { children: React.ReactNode }) {
 
    return (
       <div className="min-h-screen flex flex-col relative">
-         <nav className="sticky top-0 w-full bg-slate-900 h-14">
+         <nav className="sticky top-0 w-full bg-slate-900 h-14 z-50">
             <div className="container mx-auto flex items-center h-full">
                <Link className="text-white" href="clientes/correo">
                   Correos

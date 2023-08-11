@@ -45,7 +45,7 @@ function AnadirContacto({ idTable, contactosNotOnList }: IAnadirContactoProps) {
          headers={["Correo electrónico", "Nombre"]}
          data={data}
          selection={selectedContacts}
-         handleSelection={setSelectedContacts}
+         setSelection={setSelectedContacts}
       />
     </>
    );

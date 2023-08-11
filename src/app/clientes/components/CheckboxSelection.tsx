@@ -3,23 +3,23 @@ import { Dispatch, SetStateAction } from "react";
 export interface ICheckboxSelectionProps {
     id: number;
     selection: number[];
-    handleSelection: Dispatch<SetStateAction<number[]>>;
+    setSelection: Dispatch<SetStateAction<number[]>>;
  }
 
 function CheckboxSelection({
     id,
     selection,
-    handleSelection,
+    setSelection,
  }: ICheckboxSelectionProps) {
     const isChecked = selection.includes(id);
  
     const handleChange = () => {
        if (isChecked) {
-          handleSelection((prevSelection) =>
+          setSelection((prevSelection) =>
              prevSelection.filter((idPrevSelection) => idPrevSelection !== id)
           );
        } else {
-          handleSelection((prevSelection) => [...prevSelection, id]);
+          setSelection((prevSelection) => [...prevSelection, id]);
        }
     };
     return (

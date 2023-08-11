@@ -32,12 +32,13 @@ async function Contactos() {
                buttonType="green"
             />
          </div>
-         <div className="">
-            <Table
+         <div className="mb-5">
+         <Table
                headers={["Correo electrónico", "Nombre", "Acciones"]}
                data={contactos}
             />
          </div>
+           
       </>
    );
 }

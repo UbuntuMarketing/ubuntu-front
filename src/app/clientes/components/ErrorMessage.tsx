@@ -1,8 +1,8 @@
 import React from 'react'
 
-function ErrorMessage({error}: {error: string}) {
+function ErrorMessage({error, className = ''}: {error: string, className?: string}) {
   return (
-    <p className="text-red-500 text-xs italic">{error}</p>
+    <p className={"text-red-500 text-xs italic " + className}>{error}</p>
   )
 }
 

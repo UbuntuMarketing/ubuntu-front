@@ -22,3 +22,8 @@ export interface IContactoAttributes {
         data: IListaContacto[]
     }
 }
+
+export interface IFormNuevoContacto {
+    nombre: string;
+    email: string;
+}
