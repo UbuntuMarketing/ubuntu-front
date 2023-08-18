@@ -26,9 +26,9 @@ function LayoutCorreo({ children }: { children: React.ReactNode }) {
                </Link>
                <Link
                   className="w-full h-14 border-b-2 border-slate-800 text-white flex items-center justify-center"
-                  href="/clientes/correo/envios"
+                  href="/clientes/correo/campanas"
                >
-                  Crear Campaña
+                  Campañas
                </Link>
             </nav>
          </aside>

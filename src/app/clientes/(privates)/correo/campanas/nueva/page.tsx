@@ -2,7 +2,7 @@ import Table from "@/app/clientes/components/Table";
 import Title from "@/app/clientes/components/Title";
 import Input from "@/app/clientes/components/form/Input";
 import React from "react";
-import FormEnvio from "./FormEnvio";
+import FormEnvio from "../FormEnvio";
 import { cookies } from "next/headers";
 import strapiFetch from "@/helpers/fetcher";
 import { StrapiResponse } from "@/interfaces/strapi.interface";

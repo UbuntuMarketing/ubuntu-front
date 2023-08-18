@@ -5,7 +5,6 @@ import { StrapiResponse } from '@/interfaces/strapi.interface';
 import strapiFetch from '@/helpers/fetcher';
 import FormLista from '../../FormLista';
 import { IListaContacto } from '@/interfaces/listaContactos.interfaces';
-import { IContacto } from '@/interfaces/contactos.interfaces';
 
 const getLista = async (id:string | number): Promise<StrapiResponse<IListaContacto>> => {
     const cookiesStorage = cookies();
