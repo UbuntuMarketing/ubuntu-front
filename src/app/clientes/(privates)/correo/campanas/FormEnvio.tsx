@@ -8,6 +8,7 @@ import Destinatarios from "./Destinatarios";
 import Button from "@/app/clientes/components/Button";
 import Textarea from "@/app/clientes/components/form/Textarea";
 import ErrorMessage from "@/app/clientes/components/ErrorMessage";
+import BodyEditor from "@/app/clientes/components/BodyEditor";
 
 interface IFormEnvioProps {
    contactos: IContacto[];
@@ -27,7 +28,6 @@ function FormEnvio({ contactos, listas }: IFormEnvioProps) {
       nombreRemitente: "",
       correoRemitente: "",
       cuerpo: "",
-
    });
    const [formError, setFormError] = React.useState<string>("");
    const [contactsSelection, setContactsSelection] = React.useState<number[]>(
@@ -42,25 +42,28 @@ function FormEnvio({ contactos, listas }: IFormEnvioProps) {
          [e.target.name]: e.target.value,
       });
    };
-
-   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+   const handleCuerpo = (markdown: string) => {
+      console.log(markdown);
+      setForm( prevForm => ({...prevForm, cuerpo: markdown}))
+   }
+   // const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+   const handleSubmit = () => {
       setFormError('');
-      if (asunto.trim() === "" || nombreRemitente.trim() === "" || correoRemitente.trim() === "" || cuerpo.trim() === "") {
-         setFormError("*Todos los campos son obligatorios");
-         return;
-      }
+      // if (asunto.trim() === "" || nombreRemitente.trim() === "" || correoRemitente.trim() === "" || cuerpo.trim() === "") {
+      //    setFormError("*Todos los campos son obligatorios");
+      //    return;
+      // }
 
-      if (contactsSelection.length === 0 && listsSelection.length === 0) {
-         setFormError("Debe seleccionar al menos un destinatario");
-         return;
-      }      
+      // if (contactsSelection.length === 0 && listsSelection.length === 0) {
+      //    setFormError("Debe seleccionar al menos un destinatario");
+      //    return;
+      // }      
 
       console.log(form)
    };
 
    return (
-      <form className="mt-5" onSubmit={handleSubmit}>
+      <form className="mt-5" >
          <h3 className="text-lg">Información</h3>
          <Input label="Asunto" classContainer="my-4" />
          <Input label="Nombre Remitente" classContainer="my-4" />
@@ -90,18 +93,21 @@ function FormEnvio({ contactos, listas }: IFormEnvioProps) {
          />
 
          <h3 className="text-lg my-5">Correo</h3>
-         <Textarea
+         {/* <Textarea
             label="Cuerpo del correo:"
             classContainer="mb-10"
             name="cuerpo"
             rows={15}
             value={cuerpo}
             onChange={handleChange}
-         />
-      
+         /> */}
+
+         
+         <BodyEditor handleBody={handleCuerpo}/>
+
          <ErrorMessage error={formError} className="mb-5 text-base"/>
 
-         <Button type="submit" label="Realizar la campaña" className="w-full" />
+         <Button type="button" label="Realizar la campaña" className="w-full" onClick={() => handleSubmit()}/>
       </form>
    );
 }

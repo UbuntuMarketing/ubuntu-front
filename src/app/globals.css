@@ -6,3 +6,79 @@
 }
 
 
+.editor-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 4px;
+  }
+  
+  /* Estilos para los encabezados */
+  .editor-container  h1,
+  .editor-container  h2,
+  .editor-container  h3,
+  .editor-container  h4,
+  .editor-container  h5,
+  .editor-container  h6 {
+    margin: 0;
+    padding: 8px 0;
+  }
+
+  
+ .editor-container h1 {
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.1111111;
+  }
+  
+ .editor-container h2 {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.1111111;
+  }
+  
+ .editor-container h3 {
+    font-size: 24px;
+    font-weight: 800;
+  }
+  
+ .editor-container h4 {
+    font-size: 22px;
+  }
+  
+ .editor-container h5 {
+    font-size: 20px;
+  }
+  
+ .editor-container h6 {
+    font-size: 16px;
+  }
+
+  .editor-container a {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #006adc;
+  }
+  
+  
+  /* Estilos para las citas */
+  .editor-container blockquote {
+    margin: 0;
+    padding: 10px;
+    border-left: 2px solid #ccc;
+  }
+  
+  /* Estilos para los párrafos */
+  /* p {
+    margin: 0;
+    padding: 8px 0;
+  } */
+  
+  /* Estilos para el texto en negrita */
+  /* strong {
+    font-weight: bold;
+  } */
+  
+  /* Estilos para el texto en cursiva */
+  /* em {
+    font-style: italic;
+  } */
