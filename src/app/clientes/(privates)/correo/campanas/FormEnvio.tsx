@@ -9,6 +9,10 @@ import Button from "@/app/clientes/components/Button";
 import Textarea from "@/app/clientes/components/form/Textarea";
 import ErrorMessage from "@/app/clientes/components/ErrorMessage";
 import BodyEditor from "@/app/clientes/components/BodyEditor";
+import { sanitize } from "dompurify";
+import { marked } from "marked";
+import useFetch from "@/app/hooks/useFetch";
+import { ICreateCampania } from "@/interfaces/campania.interfaces";
 
 interface IFormEnvioProps {
    contactos: IContacto[];
@@ -20,6 +24,8 @@ interface IFormCampania {
    nombreRemitente: string;
    correoRemitente: string;
    cuerpo: string;
+   contactos: Array<number>;
+   lista_contactos: Array<number>;
 }
 
 function FormEnvio({ contactos, listas }: IFormEnvioProps) {
@@ -34,39 +40,73 @@ function FormEnvio({ contactos, listas }: IFormEnvioProps) {
       []
    );
    const [listsSelection, setListsSelection] = React.useState<number[]>([]);
+   const { loading, fetchCS } = useFetch();
    const { asunto, nombreRemitente, correoRemitente, cuerpo } = form;
 
-   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+   const handleChange = (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+   ) => {
       setForm({
          ...form,
          [e.target.name]: e.target.value,
       });
    };
    const handleCuerpo = (markdown: string) => {
-      console.log(markdown);
-      setForm( prevForm => ({...prevForm, cuerpo: markdown}))
-   }
+      setForm((prevForm) => ({ ...prevForm, cuerpo: markdown }));
+   };
    // const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-   const handleSubmit = () => {
-      setFormError('');
-      // if (asunto.trim() === "" || nombreRemitente.trim() === "" || correoRemitente.trim() === "" || cuerpo.trim() === "") {
-      //    setFormError("*Todos los campos son obligatorios");
-      //    return;
-      // }
+   const handleSubmit = async () => {
+      setFormError("");
+      console.log(form);
+      if (
+         asunto.trim() === "" ||
+         nombreRemitente.trim() === "" ||
+         correoRemitente.trim() === "" ||
+         cuerpo.trim() === ""
+      ) {
+         setFormError("*Todos los campos son obligatorios");
+         return;
+      }
 
-      // if (contactsSelection.length === 0 && listsSelection.length === 0) {
-      //    setFormError("Debe seleccionar al menos un destinatario");
-      //    return;
-      // }      
+      if (contactsSelection.length === 0 && listsSelection.length === 0) {
+         setFormError("Debe seleccionar al menos un destinatario");
+         return;
+      }
 
-      console.log(form)
+      const dataToSend: ICreateCampania = {
+         ...form,
+         correoRemitente: form. correoRemitente + '@gmail.com',
+         cuerpo: sanitize(marked.parse(form.cuerpo)),
+         contactos: contactsSelection,
+         lista_contactos: listsSelection,
+      }
+      console.log(dataToSend)
+
+      const res = await fetchCS({
+         url: "/campanas",
+         method: "POST",
+         data: dataToSend,
+      });
+      console.log(res);
    };
 
    return (
-      <form className="mt-5" >
+      <form className="mt-5">
          <h3 className="text-lg">Información</h3>
-         <Input label="Asunto" classContainer="my-4" />
-         <Input label="Nombre Remitente" classContainer="my-4" />
+         <Input
+            label="Asunto"
+            classContainer="my-4"
+            value={asunto}
+            name="asunto"
+            onChange={handleChange}
+         />
+         <Input
+            label="Nombre Remitente"
+            classContainer="my-4"
+            value={nombreRemitente}
+            name="nombreRemitente"
+            onChange={handleChange}
+         />
 
          <h3 className="text-lg mb-5">Correos</h3>
          <div className="grid grid-cols-3 items-center">
@@ -93,21 +133,17 @@ function FormEnvio({ contactos, listas }: IFormEnvioProps) {
          />
 
          <h3 className="text-lg my-5">Correo</h3>
-         {/* <Textarea
-            label="Cuerpo del correo:"
-            classContainer="mb-10"
-            name="cuerpo"
-            rows={15}
-            value={cuerpo}
-            onChange={handleChange}
-         /> */}
 
-         
-         <BodyEditor handleBody={handleCuerpo}/>
+         <BodyEditor handleBody={handleCuerpo} />
 
-         <ErrorMessage error={formError} className="mb-5 text-base"/>
+         <ErrorMessage error={formError} className="mb-5 text-base" />
 
-         <Button type="button" label="Realizar la campaña" className="w-full" onClick={() => handleSubmit()}/>
+         <Button
+            type="button"
+            label="Realizar la campaña"
+            className="w-full"
+            onClick={() => handleSubmit()}
+         />
       </form>
    );
 }

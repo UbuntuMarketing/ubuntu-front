@@ -19,3 +19,12 @@ export interface ICampaniaAttributes {
         data: IListaContacto[]
     }
 }
+
+export interface ICreateCampania {
+    asunto: string;
+    correoRemitente: string;
+    nombreRemitente: string;
+    contactos: Array<number>,
+    lista_contactos: Array<number>,
+    cuerpo: string,
+}
