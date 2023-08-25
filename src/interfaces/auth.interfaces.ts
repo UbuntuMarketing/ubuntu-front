@@ -30,4 +30,6 @@ export interface IUserAttributes {
     createdAt: string;
     updatedAt: string;
     company:   string;
+    emailRemitente?: string;
+    dominioRemitente?: string;
 }

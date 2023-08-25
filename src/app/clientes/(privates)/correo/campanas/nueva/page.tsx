@@ -8,6 +8,7 @@ import strapiFetch from "@/helpers/fetcher";
 import { StrapiResponse } from "@/interfaces/strapi.interface";
 import { IListaContacto } from "@/interfaces/listaContactos.interfaces";
 import { IContacto } from "@/interfaces/contactos.interfaces";
+import { IUserMe } from "@/interfaces/auth.interfaces";
 
 const getContactos = async (): Promise<StrapiResponse<IContacto[]>> => {
    const cookiesStorage = cookies();
@@ -23,17 +24,24 @@ const getListas = async (): Promise<StrapiResponse<IListaContacto[]>> => {
       cache: "no-store",
    });
 };
+const getUser = async (): Promise<IUserMe> => {
+   const cookiesStorage = cookies();
+   const token = cookiesStorage.get("jwt")?.value;
+   return strapiFetch({ url: `/users/me`, token, cache: "no-store" }) as unknown as Promise<IUserMe> ; 
+}
 
 
 async function page() {
    const contactos = getContactos();
    const listas = getListas();
-   const [{data: contactosData}, {data: listasData}] = await Promise.all([contactos, listas]);
+   const user = getUser();
+
+   const [{data: contactosData}, {data: listasData}, userData] = await Promise.all([contactos, listas, user]);
 
    return (
       <>
          <Title title="Crear campaña" />
-         <FormEnvio contactos={contactosData} listas={listasData} />
+         <FormEnvio contactos={contactosData} listas={listasData} user={userData}/>
       </>
    );
 }

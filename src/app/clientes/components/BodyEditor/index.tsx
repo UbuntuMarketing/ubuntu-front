@@ -8,7 +8,6 @@ import {
    BlockTypeSelect,
    BoldItalicUnderlineToggles,
    CreateLink,
-   InsertImage,
    MDXEditorMethods,
    UndoRedo,
    imagePlugin,

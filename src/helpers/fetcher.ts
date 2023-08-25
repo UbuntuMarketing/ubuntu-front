@@ -25,6 +25,7 @@ async function strapiFetch<T>({ url, method = 'GET', data = {}, token = '', cach
     config.body = JSON.stringify({data});
   }
   const res = await fetch(`${BASE_URL}${url}`, config);
+
   const json = await res.json();
 
   if (!res.ok) {
