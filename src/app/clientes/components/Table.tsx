@@ -29,7 +29,7 @@ function Table({ headers, data, maxHeight }: TableProps) {
             className="w-full text-sm text-left text-gray-500 dark:text-gray-400"
           
          >
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 sticky top-0">
+            <thead className="text-xs bg-white text-gray-700 uppercase bg-gray-5 sticky top-0">
                <tr>
                   {headers.map((header, idx) => (
                      <th scope="col" className="px-6 py-3" key={idx}>
@@ -51,14 +51,14 @@ function Table({ headers, data, maxHeight }: TableProps) {
 }
 
 const SearchBar = ({query, setQuery}: {query: string, setQuery: Dispatch<SetStateAction<string>>}) => (
-   <div className="pb-4 bg-white dark:bg-gray-900">
+   <div className="pb-4 bg-white ">
             <label htmlFor="table-search" className="sr-only">
                Search
             </label>
             <div className="relative mt-1">
                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <svg
-                     className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                     className="w-4 h-4 text-gray-500"
                      aria-hidden="true"
                      xmlns="http://www.w3.org/2000/svg"
                      fill="none"
@@ -76,7 +76,7 @@ const SearchBar = ({query, setQuery}: {query: string, setQuery: Dispatch<SetStat
                <input
                   type="text"
                   id="table-search"
-                  className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg  md:w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
                   placeholder="Buscar"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
@@ -87,12 +87,12 @@ const SearchBar = ({query, setQuery}: {query: string, setQuery: Dispatch<SetStat
 
 const Row = ({ data }: { data: Array<string | number> }) => {
    return (
-      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+      <tr className="bg-white border-b  hover:bg-gray-50 ">
          {data.map((data, idx) => (
             <td
                scope="row"
                key={idx}
-               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
             >
                {data}
             </td>

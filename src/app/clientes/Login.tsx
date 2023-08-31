@@ -4,6 +4,7 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import Input from "./components/form/Input";
 import Button from "./components/Button";
 import { useRouter } from "next/navigation";
+import translate from "@/helpers/translations";
 
 function Login() {
    const [form, setForm] = useState({ identifier: "", password: "" });
@@ -67,10 +68,11 @@ function Login() {
             value={password}
             onChange={handleChange}
          />
-         {error && <p className="text-center mb-5 text-red-500">{error}</p>}
+         {error && <p className="text-center mt-5 text-red-500">{translate(error)}</p>}
          <Button
-            label={loading ? "iniciando" : "Iniciar sesión"}
+            label={"Iniciar sesión"}
             className="w-full mt-5"
+            loading={loading}
          />
       </form>
    );

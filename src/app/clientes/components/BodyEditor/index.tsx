@@ -57,6 +57,7 @@ const BodyEditor = ({
       <div className="editor-container relative">
          <MDXEditor
             ref={ref}
+            className="max-h-[500px] overflow-auto"
             markdown=""
             onChange={(mdk) => handleChange(mdk)}
             plugins={[

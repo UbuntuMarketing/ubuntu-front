@@ -35,7 +35,7 @@ async function page() {
       <>
          <Title title="Campañas" />
          <div className="flex justify-end my-5">
-            <LinkButton href="/clientes/correo/campanas/nueva" label="Crear Campaña"/>
+            <LinkButton href="/clientes/correo/campanas/nueva" label="Crear Campaña" buttonType="green"/>
          </div>
          <div className="mb-5">
             <Table

@@ -13,7 +13,7 @@ function Page() {
    getAuth();
 
    return (
-      <div className="w-full min-h-screen bg-slate-700">
+      <div className="w-full min-h-screen bg-slate-900">
          <div className="container min-h-screen m-auto flex items-center">
             <Login/>
          </div>

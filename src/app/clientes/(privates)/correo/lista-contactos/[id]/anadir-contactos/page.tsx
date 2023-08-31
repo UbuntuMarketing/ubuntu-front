@@ -33,7 +33,7 @@ async function page({
 
    return (
       <>
-         <Title title="Añadir contactos" />
+         <Title title="Añadir contactos a lista" />
          <AnadirContacto contactosNotOnList={contactosNotOnList} idTable={params.id}/>   
       </>
    );

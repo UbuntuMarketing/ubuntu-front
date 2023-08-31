@@ -58,23 +58,23 @@ function FormEnvio({ contactos, listas, user }: IFormEnvioProps) {
    const handleCuerpo = (markdown: string) => {
       setForm((prevForm) => ({ ...prevForm, cuerpo: markdown }));
    };
-   // const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  
    const handleSubmit = async () => {
       setFormError("");
-      // if (
-      //    asunto.trim() === "" ||
-      //    nombreRemitente.trim() === "" ||
-      //    correoRemitente.trim() === "" ||
-      //    cuerpo.trim() === ""
-      // ) {
-      //    setFormError("*Todos los campos son obligatorios");
-      //    return;
-      // }
+      if (
+         asunto.trim() === "" ||
+         nombreRemitente.trim() === "" ||
+         correoRemitente.trim() === "" ||
+         cuerpo.trim() === ""
+      ) {
+         setFormError("*Todos los campos son obligatorios");
+         return;
+      }
 
-      // if (contactsSelection.length === 0 && listsSelection.length === 0) {
-      //    setFormError("Debe seleccionar al menos un destinatario");
-      //    return;
-      // }
+      if (contactsSelection.length === 0 && listsSelection.length === 0) {
+         setFormError("Debe seleccionar al menos un destinatario");
+         return;
+      }
 
       const emailRemitente = user.emailRemitente || form.correoRemitente + '@' + user.dominioRemitente;
 
@@ -87,12 +87,12 @@ function FormEnvio({ contactos, listas, user }: IFormEnvioProps) {
       }
       // setOpenPreview(true)
       console.log(dataToSend);
-      // const res = await fetchCS({
-      //    url: "/campanas",
-      //    method: "POST",
-      //    data: dataToSend,
-      // });
-      // console.log(res);
+      const res = await fetchCS({
+         url: "/campanas",
+         method: "POST",
+         data: dataToSend,
+      });
+      console.log(res);
    };
 
    if(!user.emailRemitente && !user.dominioRemitente){
@@ -168,7 +168,7 @@ function FormEnvio({ contactos, listas, user }: IFormEnvioProps) {
             type="button"
             label="Realizar la campaña"
             className="w-full"
-            loading={true}
+            loading={loading}
             onClick={() => handleSubmit()}
          />
       </form>

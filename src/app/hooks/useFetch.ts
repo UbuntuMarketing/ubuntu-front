@@ -12,6 +12,7 @@ function useFetch() {
     async function fetchCS<T>({url, method = 'GET', data} : IFetchCS){
         setError(null);
         setLoading(true);        
+        console.log(url)
         try {
             const auth: ILoginReponse = JSON.parse(
                 localStorage.getItem("auth") || ""
