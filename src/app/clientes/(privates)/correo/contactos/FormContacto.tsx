@@ -12,7 +12,7 @@ function FormContacto({contacto} : {contacto?: IContacto}) {
     const [form, setForm] = useState<IFormNuevoContacto>(contacto?.attributes ?? { email: "", nombre: "" });
    const { email, nombre } = form;
    const router = useRouter();
-   const {fetchCS, error, loading} = useFetch();
+   const {fetchCS, error, loading, setError} = useFetch();
 
    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
@@ -20,7 +20,7 @@ function FormContacto({contacto} : {contacto?: IContacto}) {
    };
 
    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+      e.preventDefault();      
       const method = contacto ? 'PUT' : 'POST';
       const url = contacto ? `/contactos/${contacto.id}` : '/contactos';
       const data = {email, nombre} //solo esto se envirá, agregar las demás propiedades si se requieren

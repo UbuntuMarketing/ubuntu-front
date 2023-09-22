@@ -7,15 +7,18 @@ import Title from "@/app/clientes/components/Title";
 import LinkButton from "@/app/clientes/components/LinkButton";
 import strapiFetch from "@/helpers/fetcher";
 import AccionesContacto from "./AccionesContacto";
+import {RiFileExcel2Line} from 'react-icons/ri'
+import {BsPersonFillAdd} from 'react-icons/bs'
 
 const getContactos = async (): Promise<StrapiResponse<IContacto[]>> => {
    const cookiesStorage = cookies();
    const token = cookiesStorage.get("jwt")?.value;
-   return strapiFetch({ url: `/contactos`, token, cache: "no-store" });
+   return strapiFetch({ url: `/contactos?pagination[pageSize]=10000`, token, cache: "no-store" });
 };
 
 async function Contactos() {
-   const { data } = await getContactos();
+   const res = await getContactos();
+   const {data} = res;
    const contactos = data.map((contacto) => [
       contacto.attributes.email,
       contacto.attributes.nombre,
@@ -29,6 +32,13 @@ async function Contactos() {
             <LinkButton
                href="/clientes/correo/contactos/nuevo"
                label="Añadir"
+               buttonType="green"
+               icon={<BsPersonFillAdd/>}
+            />
+              <LinkButton
+               href="/clientes/correo/contactos/archivo"
+               label="Cargar Archivo"
+               icon={<RiFileExcel2Line />}
                buttonType="green"
             />
          </div>

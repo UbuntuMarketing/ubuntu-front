@@ -167,7 +167,7 @@ function FormEnvio({ contactos, listas, user }: IFormEnvioProps) {
          <Button
             type="button"
             label="Realizar la campaña"
-            className="w-full"
+            className="w-full mt-3"
             loading={loading}
             onClick={() => handleSubmit()}
          />

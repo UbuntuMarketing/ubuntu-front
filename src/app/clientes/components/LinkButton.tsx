@@ -6,11 +6,16 @@ interface LinkButtonProps extends LinkProps{
     buttonType?: 'primary' | 'alternative' | 'green' | 'danger',
     href: string,
     className?: string,
+    icon?: React.ReactNode;
 }
 
-function LinkButton({label, className, href, buttonType = 'primary', ...props}: LinkButtonProps) {
+function LinkButton({label, className, href, buttonType = 'primary', icon, ...props}: LinkButtonProps) {
   return (
-    <Link href={href} className={`${ButtonTypes[buttonType]} ${className}`} {...props}>{label}</Link>
+    <Link href={href} className={`flex items-center ${ButtonTypes[buttonType]}
+     ${className}`} {...props}>
+      {icon && <div className='mr-1 text-xl'>{icon}</div>}
+      {label}
+      </Link>
   )
 }
 

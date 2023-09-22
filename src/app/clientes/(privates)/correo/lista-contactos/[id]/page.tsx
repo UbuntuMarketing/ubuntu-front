@@ -45,10 +45,16 @@ async function page({
       <>
          <Title title={data.attributes.nombre} />
          <div className="my-6 flex justify-between">
-            <LinkButton
-               label="Añadir contactos"
-               href={`./${params.id}/anadir-contactos`}
-            />
+            <div>
+               <LinkButton
+                  label="Añadir Contactos"
+                  href={`./${params.id}/anadir-contactos`}
+               />
+               <LinkButton
+                  label="Contactos Desde Archivo"
+                  href={`./${params.id}/archivo`}
+               />
+            </div>
             <LinkButton
                label="Editar"
                href={`/clientes/correo/lista-contactos/editar/${params.id}`}

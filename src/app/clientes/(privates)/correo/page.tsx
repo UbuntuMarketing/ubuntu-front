@@ -51,8 +51,8 @@ async function Correo() {
          </h1>
          <div className="w-full grid justify-center md:grid-cols-3 gap-10">
             <StadisticCard quantity={quantityContacts} label="Contactos" href="/clientes/correo/contactos"/>
-            <StadisticCard quantity={quantityCampanas} label="Listas de contactos" href="/clientes/correo/lista-contactos" />
-            <StadisticCard quantity={quantityLists} label="Campañas" href="/clientes/correo/campanas" />
+            <StadisticCard quantity={quantityLists} label="Listas de contactos" href="/clientes/correo/lista-contactos" />
+            <StadisticCard quantity={quantityCampanas} label="Campañas" href="/clientes/correo/campanas" />
          </div>
       </div>
    );

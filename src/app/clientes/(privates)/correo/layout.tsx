@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { FaHome, FaUserFriends, FaListUl, FaEnvelope } from "react-icons/fa";
 import { RiMenuFoldFill, RiMenuUnfoldFill } from "react-icons/ri";
+import { BiSolidCategory } from 'react-icons/bi'
 
 function LayoutCorreo({ children }: { children: React.ReactNode }) {
    const [asideOpen, setAsideOpen] = useState(false);
@@ -57,6 +58,15 @@ function LayoutCorreo({ children }: { children: React.ReactNode }) {
                      <FaEnvelope />
                   </div>
                   Campañas
+               </Link>
+               <Link
+                  className="w-full h-14 border-b-2 border-slate-800 text-white flex items-center justify-center"
+                  href="/clientes/correo/categorias"
+               >
+                  <div className="mr-1">
+                     <BiSolidCategory />
+                  </div>
+                  Categorias
                </Link>
             </nav>
          </aside>

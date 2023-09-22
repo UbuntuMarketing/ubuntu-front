@@ -6,11 +6,11 @@ interface IFetchCS extends Omit<IFetcher, 'token'>{}
 
 //Fetch data from client side
 function useFetch() {
-    const [error, setError] = React.useState(null);
+    const [error, setError] = React.useState('');
     const [loading, setLoading] = React.useState(false);
 
     async function fetchCS<T>({url, method = 'GET', data} : IFetchCS){
-        setError(null);
+        setError('');
         setLoading(true);        
         console.log(url)
         try {
@@ -30,6 +30,7 @@ function useFetch() {
 
     return {
         error,
+        setError,
         loading,
         fetchCS
     }
