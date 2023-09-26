@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import React from "react";
+import {BiMailSend} from 'react-icons/bi'
 
 const getCampanias = async (): Promise<StrapiResponse<ICampania[]>> => {
    const cookiesStorage = cookies();
@@ -35,7 +36,7 @@ async function page() {
       <>
          <Title title="Campañas" />
          <div className="flex justify-end my-5">
-            <LinkButton href="/clientes/correo/campanas/nueva" label="Crear Campaña" buttonType="green"/>
+            <LinkButton href="/clientes/correo/campanas/nueva" label="Crear Campaña" buttonType="green" icon={<BiMailSend/>}/>
          </div>
          <div className="mb-5">
             <Table

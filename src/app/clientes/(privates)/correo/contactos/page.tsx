@@ -1,23 +1,14 @@
 import React from "react";
 import Table from "@/app/clientes/components/Table";
-import { cookies } from "next/headers";
-import { StrapiResponse } from "@/interfaces/strapi.interface";
-import { IContacto } from "@/interfaces/contactos.interfaces";
 import Title from "@/app/clientes/components/Title";
 import LinkButton from "@/app/clientes/components/LinkButton";
-import strapiFetch from "@/helpers/fetcher";
 import AccionesContacto from "./AccionesContacto";
 import {RiFileExcel2Line} from 'react-icons/ri'
 import {BsPersonFillAdd} from 'react-icons/bs'
-
-const getContactos = async (): Promise<StrapiResponse<IContacto[]>> => {
-   const cookiesStorage = cookies();
-   const token = cookiesStorage.get("jwt")?.value;
-   return strapiFetch({ url: `/contactos?pagination[pageSize]=10000`, token, cache: "no-store" });
-};
+import { getContactos } from "@/app/services/contactos";
 
 async function Contactos() {
-   const res = await getContactos();
+   const res = await getContactos({queries: 'pagination[pageSize]=10000'});
    const {data} = res;
    const contactos = data.map((contacto) => [
       contacto.attributes.email,

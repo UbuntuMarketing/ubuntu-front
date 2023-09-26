@@ -3,22 +3,22 @@
 import Input from "@/app/clientes/components/form/Input";
 import { IContacto } from "@/interfaces/contactos.interfaces";
 import { IListaContacto } from "@/interfaces/listaContactos.interfaces";
-import React, { FormEvent, useState } from "react";
+import React from "react";
 import Destinatarios from "./Destinatarios";
 import Button from "@/app/clientes/components/Button";
-import Textarea from "@/app/clientes/components/form/Textarea";
 import ErrorMessage from "@/app/clientes/components/ErrorMessage";
 import BodyEditor from "@/app/clientes/components/BodyEditor";
 import { sanitize } from "dompurify";
 import { marked } from "marked";
 import useFetch from "@/app/hooks/useFetch";
 import { ICreateCampania } from "@/interfaces/campania.interfaces";
-import Modal from "@/app/clientes/components/Modal";
 import { IUserMe } from "@/interfaces/auth.interfaces";
+import { ICategoria } from "@/interfaces/categorias.interfaces";
 
 interface IFormEnvioProps {
    contactos: IContacto[];
    listas: IListaContacto[];
+   categorias: ICategoria[];
    user: IUserMe;
 }
 
@@ -29,7 +29,7 @@ interface IFormCampania {
    cuerpo: string;
 }
 
-function FormEnvio({ contactos, listas, user }: IFormEnvioProps) {
+function FormEnvio({ contactos, listas, user,categorias }: IFormEnvioProps) {
    const [form, setForm] = React.useState<IFormCampania>({
       asunto: "",
       nombreRemitente: "",
@@ -148,6 +148,7 @@ function FormEnvio({ contactos, listas, user }: IFormEnvioProps) {
          <Destinatarios
             contactos={contactos}
             listas={listas}
+            categorias={categorias}
             contactsSelection={contactsSelection}
             setContactsSelection={setContactsSelection}
             listsSelection={listsSelection}

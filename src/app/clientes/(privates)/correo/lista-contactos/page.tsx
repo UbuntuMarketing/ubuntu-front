@@ -1,22 +1,14 @@
 import React from "react";
 import Table from "@/app/clientes/components/Table";
-import { cookies } from "next/headers";
-import { StrapiResponse } from "@/interfaces/strapi.interface";
-import strapiFetch from "@/helpers/fetcher";
 import AccionesLista from "./AccionesLista";
-import { IListaContacto } from "@/interfaces/listaContactos.interfaces";
+import {BiListPlus} from 'react-icons/bi'
 import Title from "@/app/clientes/components/Title";
 import LinkButton from "@/app/clientes/components/LinkButton";
+import { getListas } from "@/app/services/listasContactos";
 
-
-const getListas = async (): Promise<StrapiResponse<IListaContacto[]>> => {
-   const cookiesStorage = cookies();
-   const token = cookiesStorage.get("jwt")?.value;
-   return strapiFetch({ url: `/lista-contactos?populate=contactos`, token, cache: "no-store" });
-};
 
 async function ListaContactos() {
-   const { data } = await getListas();
+   const { data } = await getListas({queries: 'populate=contactos'});
    const listas = data.map((lista) => [
       lista.attributes.nombre,
       lista.attributes.contactos?.data.length,
@@ -31,6 +23,7 @@ async function ListaContactos() {
                href="/clientes/correo/lista-contactos/nuevo"
                label="Crear"
                buttonType="green"
+               icon={<BiListPlus/>}
             />
          </div>
          <div>

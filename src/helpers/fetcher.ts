@@ -19,7 +19,7 @@ async function strapiFetch<T>({ url, method = 'GET', data = {}, token = '', cach
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
-    cache
+    cache,
   }
   if(method !== 'GET') {
     config.body = JSON.stringify({data});

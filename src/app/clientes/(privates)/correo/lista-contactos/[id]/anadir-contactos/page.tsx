@@ -1,21 +1,6 @@
 import Title from "@/app/clientes/components/Title";
-import strapiFetch from "@/helpers/fetcher";
-import { IContacto } from "@/interfaces/contactos.interfaces";
-import { StrapiResponse } from "@/interfaces/strapi.interface";
-import { cookies } from "next/headers";
 import AnadirContacto from "./AnadirContacto";
-
-const getContactos = async (
-   idLista: string
-): Promise<StrapiResponse<IContacto[]>> => {
-   const cookiesStorage = cookies();
-   const token = cookiesStorage.get("jwt")?.value;
-   return strapiFetch({
-      url: `/contactos?populate=lista_contactos`,
-      token,
-      cache: "no-store",
-   });
-};
+import { getContactos } from "@/app/services/contactos";
 
 async function page({
    params,
@@ -24,7 +9,7 @@ async function page({
       id: string;
    };
 }) {
-   const { data } = await getContactos(params.id);
+   const { data } = await getContactos({queries: 'pagination[pageSize]=10000&populate=lista_contactos'});
    const contactosNotOnList = data.filter((contacto) =>
       contacto.attributes.lista_contactos?.data.every(
          (lista) => lista.id.toString() != params.id

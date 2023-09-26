@@ -9,39 +9,42 @@ import { StrapiResponse } from "@/interfaces/strapi.interface";
 import { IListaContacto } from "@/interfaces/listaContactos.interfaces";
 import { IContacto } from "@/interfaces/contactos.interfaces";
 import { IUserMe } from "@/interfaces/auth.interfaces";
+import { getContactos } from "@/app/services/contactos";
+import { getListas } from "@/app/services/listasContactos";
+import { getCategorias } from "@/app/services/categorias";
 
-const getContactos = async (): Promise<StrapiResponse<IContacto[]>> => {
-   const cookiesStorage = cookies();
-   const token = cookiesStorage.get("jwt")?.value;
-   return strapiFetch({ url: `/contactos`, token, cache: "no-store" });
-};
-const getListas = async (): Promise<StrapiResponse<IListaContacto[]>> => {
-   const cookiesStorage = cookies();
-   const token = cookiesStorage.get("jwt")?.value;
-   return strapiFetch({
-      url: `/lista-contactos?populate=contactos`,
-      token,
-      cache: "no-store",
-   });
-};
 const getUser = async (): Promise<IUserMe> => {
    const cookiesStorage = cookies();
    const token = cookiesStorage.get("jwt")?.value;
-   return strapiFetch({ url: `/users/me`, token, cache: "no-store" }) as unknown as Promise<IUserMe> ; 
-}
-
+   return strapiFetch({
+      url: `/users/me`,
+      token,
+      cache: "no-store",
+   }) as unknown as Promise<IUserMe>;
+};
 
 async function page() {
-   const contactos = getContactos();
-   const listas = getListas();
+   const contactos = getContactos({ queries: "pagination[pageSize]=10000" });
+   const listas = getListas({ queries: "populate=contactos" });
+   const categorias = getCategorias({});
    const user = getUser();
 
-   const [{data: contactosData}, {data: listasData}, userData] = await Promise.all([contactos, listas, user]);
+   const [
+      { data: contactosData },
+      { data: listasData },
+      userData,
+      { data: categoriasData },
+   ] = await Promise.all([contactos, listas, user, categorias]);
 
    return (
       <>
          <Title title="Crear campaña" />
-         <FormEnvio contactos={contactosData} listas={listasData} user={userData}/>
+         <FormEnvio
+            contactos={contactosData}
+            listas={listasData}
+            user={userData}
+            categorias={categoriasData}
+         />
       </>
    );
 }

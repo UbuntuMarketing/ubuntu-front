@@ -6,8 +6,8 @@ import { IListaContacto } from "@/interfaces/listaContactos.interfaces";
 import Table from "@/app/clientes/components/Table";
 import { IContacto } from "@/interfaces/contactos.interfaces";
 import AccionesContactoEnLista from "./AccionesContactoEnLista";
-import Button from "@/app/clientes/components/Button";
-import Link from "next/link";
+import {RiFileExcel2Line} from 'react-icons/ri'
+import {BsPersonFillAdd, BsFillPencilFill} from 'react-icons/bs'
 import LinkButton from "@/app/clientes/components/LinkButton";
 
 const getLista = async (
@@ -45,20 +45,25 @@ async function page({
       <>
          <Title title={data.attributes.nombre} />
          <div className="my-6 flex justify-between">
-            <div>
+            <div className="flex">
                <LinkButton
                   label="Añadir Contactos"
                   href={`./${params.id}/anadir-contactos`}
+                  icon={<BsPersonFillAdd/>}
                />
                <LinkButton
                   label="Contactos Desde Archivo"
                   href={`./${params.id}/archivo`}
+                  icon={<RiFileExcel2Line />}
                />
             </div>
             <LinkButton
                label="Editar"
                href={`/clientes/correo/lista-contactos/editar/${params.id}`}
                className="bg-green-600"
+               icon={<BsFillPencilFill/>}
+               iconClass="text-sm"
+               
             />
          </div>
          <div className="my-6">

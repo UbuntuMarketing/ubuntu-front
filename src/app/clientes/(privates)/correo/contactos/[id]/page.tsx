@@ -1,16 +1,10 @@
 import Title from '@/app/clientes/components/Title';
 import React from 'react'
 import FormContacto from '../FormContacto';
-import { cookies } from 'next/headers';
-import { StrapiResponse } from '@/interfaces/strapi.interface';
-import { IContacto } from '@/interfaces/contactos.interfaces';
-import strapiFetch from '@/helpers/fetcher';
+import {getContacto} from '@/app/services/contactos';
+import { getCategorias } from '@/app/services/categorias';
+import { getListas } from '@/app/services/listasContactos';
 
-const getContacto = async (id:string | number): Promise<StrapiResponse<IContacto>> => {
-    const cookiesStorage = cookies();
-    const token = cookiesStorage.get("jwt")?.value;
-    return strapiFetch({ url: `/contactos/${id}`, token, cache: "no-store" });
- };
 
 async function page({
     params,
@@ -19,13 +13,12 @@ async function page({
        id: string;
     };
  }) {
-    const res = await getContacto(params.id);
-    const contacto = res.data;
+    const [{data: categorias}, {data: listas}, {data: contacto}] = await Promise.all([getCategorias({}), getListas({}), getContacto({id: params.id, queries:'populate=categorias&populate=lista_contactos'})])
     
   return (
     <>
     <Title title="Editar Contacto" />
-    <FormContacto contacto={contacto}/>
+    <FormContacto contacto={contacto} listaContactos={listas} categorias={categorias}/>
  </>
   )
 }
