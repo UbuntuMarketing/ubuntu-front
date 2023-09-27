@@ -24,7 +24,7 @@ const getUser = async (): Promise<IUserMe> => {
 };
 
 async function page() {
-   const contactos = getContactos({ queries: "pagination[pageSize]=10000" });
+   const contactos = getContactos({ queries: "pagination[pageSize]=10000&populate=categorias&populate=lista_contactos" });
    const listas = getListas({ queries: "populate=contactos" });
    const categorias = getCategorias({});
    const user = getUser();
@@ -35,7 +35,6 @@ async function page() {
       userData,
       { data: categoriasData },
    ] = await Promise.all([contactos, listas, user, categorias]);
-
    return (
       <>
          <Title title="Crear campaña" />
