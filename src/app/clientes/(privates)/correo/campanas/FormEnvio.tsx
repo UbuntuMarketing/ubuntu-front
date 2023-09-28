@@ -40,10 +40,6 @@ function FormEnvio({ contactos, listas, user,categorias }: IFormEnvioProps) {
    const [contactsSelection, setContactsSelection] = React.useState<number[]>(
       []
    );
-
-   // const [openPreview, setOpenPreview] = useState(false);
-   
-   const [listsSelection, setListsSelection] = React.useState<number[]>([]);
    const { loading, fetchCS } = useFetch();
    const { asunto, nombreRemitente, correoRemitente, cuerpo } = form;
 
@@ -71,7 +67,7 @@ function FormEnvio({ contactos, listas, user,categorias }: IFormEnvioProps) {
          return;
       }
 
-      if (contactsSelection.length === 0 && listsSelection.length === 0) {
+      if (!contactsSelection.length) {
          setFormError("Debe seleccionar al menos un destinatario");
          return;
       }
@@ -83,10 +79,8 @@ function FormEnvio({ contactos, listas, user,categorias }: IFormEnvioProps) {
          correoRemitente: emailRemitente,
          cuerpo: sanitize(marked.parse(form.cuerpo)),
          contactos: contactsSelection,
-         lista_contactos: listsSelection,
       }
       // setOpenPreview(true)
-      console.log(dataToSend);
       const res = await fetchCS({
          url: "/campanas",
          method: "POST",
@@ -151,8 +145,6 @@ function FormEnvio({ contactos, listas, user,categorias }: IFormEnvioProps) {
             categorias={categorias}
             contactsSelection={contactsSelection}
             setContactsSelection={setContactsSelection}
-            listsSelection={listsSelection}
-            setListsSelection={setListsSelection}
          />
 
          <h3 className="text-lg my-5">Correo</h3>

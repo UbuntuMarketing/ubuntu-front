@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export interface TableProps {
-   headers: string[];
+   headers: Array <string | React.ReactNode>;
    data: Array<Array<any>>;
    maxHeight?: number;
 }

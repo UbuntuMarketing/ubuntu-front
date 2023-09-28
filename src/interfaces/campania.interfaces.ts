@@ -15,9 +15,6 @@ export interface ICampaniaAttributes {
     destinatarios: {
         data: IContacto[]
     }
-    lista_contactos: {
-        data: IListaContacto[]
-    }
 }
 
 export interface ICreateCampania {
@@ -25,6 +22,5 @@ export interface ICreateCampania {
     correoRemitente: string;
     nombreRemitente: string;
     contactos: Array<number>,
-    lista_contactos: Array<number>,
     cuerpo: string,
 }

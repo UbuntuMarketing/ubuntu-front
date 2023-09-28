@@ -3,17 +3,13 @@ import Select from "react-select";
 import { IContacto } from "@/interfaces/contactos.interfaces";
 import { IListaContacto } from "@/interfaces/listaContactos.interfaces";
 import React, { useEffect, useState } from "react";
-import { Contactos, ICategoria } from "@/interfaces/categorias.interfaces";
-import { list } from "postcss";
-
+import { ICategoria } from "@/interfaces/categorias.interfaces";
 interface IDestinatariosProps {
    contactos: IContacto[];
    listas: IListaContacto[];
    contactsSelection: number[];
    categorias: ICategoria[];
    setContactsSelection: React.Dispatch<React.SetStateAction<number[]>>;
-   listsSelection: number[];
-   setListsSelection: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 interface ISelectOption {
@@ -27,8 +23,6 @@ function Destinatarios({
    categorias,
    contactsSelection,
    setContactsSelection,
-   listsSelection,
-   setListsSelection,
 }: IDestinatariosProps) {
    const [contactosToShow, setContactsToShow] =
       React.useState<IContacto[]>(contactos);

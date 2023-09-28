@@ -1,12 +1,16 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Table, { TableProps } from "./Table";
-import CheckboxSelection, { ICheckboxSelectionProps } from "./CheckboxSelection";
+import CheckboxSelection, {
+   ICheckboxSelectionProps,
+} from "./CheckboxSelection";
 
-interface ISelectionTableProps extends Omit<TableProps, 'data'>, Omit<ICheckboxSelectionProps, 'id'> {
-    data: Array<{
-        id: number,
-        values: Array<any>
-    }>
+interface ISelectionTableProps
+   extends Omit<TableProps, "data">,
+      Omit<ICheckboxSelectionProps, "id"> {
+   data: Array<{
+      id: number;
+      values: Array<any>;
+   }>;
 }
 
 function SelectionTable({
@@ -14,10 +18,29 @@ function SelectionTable({
    data,
    selection,
    setSelection,
-   maxHeight
-}: ISelectionTableProps) {  
+   maxHeight,
+}: ISelectionTableProps) {
 
-   const headersWithCheckbox = ["#", ...headers];
+   const [isAllSelected, setIsAllSelected] = useState(false);
+   const dataIds = data.map( d => d.id);
+   useEffect( () => {
+      setIsAllSelected( dataIds.every( id => selection.includes(id)))               
+   },[dataIds, selection])   
+
+   const handleSelectAll = (e : React .FormEvent<HTMLInputElement>) => {
+      const isChecked = e.currentTarget.checked;
+      if (isChecked) {
+         setSelection(prev =>  [...prev, ...dataIds.filter( d => !prev.includes(d) )]);
+      }else {
+         setSelection(prev => prev.filter( d => !dataIds.includes(d) ));
+      }
+      setIsAllSelected(isChecked);
+   }
+
+   const headersWithCheckbox = [
+      <input key="all" checked={isAllSelected} type="checkbox" onChange={handleSelectAll} />,
+      ...headers,
+   ];
 
    const dataWithCheckbox = data.map((d) => [
       <CheckboxSelection
@@ -28,9 +51,13 @@ function SelectionTable({
       />,
       ...d.values,
    ]);
-   return <Table headers={headersWithCheckbox} data={dataWithCheckbox} maxHeight={maxHeight} />;
+   return (
+      <Table
+         headers={headersWithCheckbox}
+         data={dataWithCheckbox}
+         maxHeight={maxHeight}
+      />
+   );
 }
-
-
 
 export default SelectionTable;
