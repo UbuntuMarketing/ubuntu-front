@@ -13,7 +13,9 @@ export async function POST(request: Request) {
            },
            body: JSON.stringify(body),
         });
+        console.log('res: ', res )
         const json = await res.json();
+        console.log('json: ', json);
         if(!res.ok){
             const error = json as IStrapiError;
             return NextResponse.json(error, {status: error.error.status})

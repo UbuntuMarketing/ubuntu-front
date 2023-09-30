@@ -14,6 +14,7 @@ import useFetch from "@/app/hooks/useFetch";
 import { ICreateCampania } from "@/interfaces/campania.interfaces";
 import { IUserMe } from "@/interfaces/auth.interfaces";
 import { ICategoria } from "@/interfaces/categorias.interfaces";
+import { useRouter } from "next/navigation";
 
 interface IFormEnvioProps {
    contactos: IContacto[];
@@ -41,6 +42,7 @@ function FormEnvio({ contactos, listas, user,categorias }: IFormEnvioProps) {
       []
    );
    const { loading, fetchCS } = useFetch();
+   const router = useRouter();
    const { asunto, nombreRemitente, correoRemitente, cuerpo } = form;
 
    const handleChange = (
@@ -86,7 +88,10 @@ function FormEnvio({ contactos, listas, user,categorias }: IFormEnvioProps) {
          method: "POST",
          data: dataToSend,
       });
-      console.log(res);
+      if(res){
+         router.refresh();
+         router.push('/clientes/correo/campanas')
+      }
    };
 
    if(!user.emailRemitente && !user.dominioRemitente){
